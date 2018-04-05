@@ -66,20 +66,20 @@ def evaluate_model(model, tokenizer, sources, raw_dataset):
 	print('BLEU-4: %f' % corpus_bleu(actual, predicted, weights=(0.25, 0.25, 0.25, 0.25)))
  
 # load datasets
-dataset = load_clean_sentences('english-german-both.pkl')
-train = load_clean_sentences('english-german-train.pkl')
-test = load_clean_sentences('english-german-test.pkl')
+dataset = load_clean_sentences('english-science-both.pkl')
+train = load_clean_sentences('english-science-train.pkl')
+test = load_clean_sentences('english-science-test.pkl')
 # prepare english tokenizer
 eng_tokenizer = create_tokenizer(dataset[:, 0])
 eng_vocab_size = len(eng_tokenizer.word_index) + 1
 eng_length = max_length(dataset[:, 0])
-# prepare german tokenizer
-ger_tokenizer = create_tokenizer(dataset[:, 1])
-ger_vocab_size = len(ger_tokenizer.word_index) + 1
-ger_length = max_length(dataset[:, 1])
+# prepare science tokenizer
+sci_tokenizer = create_tokenizer(dataset[:, 1])
+sci_vocab_size = len(sci_tokenizer.word_index) + 1
+sci_length = max_length(dataset[:, 1])
 # prepare data
-trainX = encode_sequences(ger_tokenizer, ger_length, train[:, 1])
-testX = encode_sequences(ger_tokenizer, ger_length, test[:, 1])
+trainX = encode_sequences(sci_tokenizer, sci_length, train[:, 1])
+testX = encode_sequences(sci_tokenizer, sci_length, test[:, 1])
  
 # load model
 model = load_model('model.h5')
